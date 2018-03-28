@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+void quick_sort(int s[],int l,int r);
 
 
 /* 
@@ -36,15 +37,47 @@ int method_1(int data[],int length){
 /* 
 	快排之后，值与位置不对应的就是重复的
 */
-int method_1(int data[],int length){
-
+int method_2(int data[],int length){
+	quick_sort(data,0,6);
+	for (int i = 0; i < length; ++i)
+	{
+		if (data[i] != i)
+		{
+			return data[i];
+		}
+	}
     return 0;
+}
+
+
+void quick_sort(int s[],int l,int r)
+{
+    if(l < r)
+    {
+        int i=l,j=r,x=s[l];
+        while(i<j)
+        {
+            while(i<j && s[j]>=x)//从右到左找到第一个小于x的数  
+                j--;
+            if(i<j)
+                s[i++]=s[j];
+            
+            while(i<j && s[i]<=x)//从左往右找到第一个大于x的数  
+                i++;
+            if(i<j)
+                s[j--]=s[i]; 
+            
+        } 
+        s[i]=x;//i = j的时候，将x填入中间位置  
+        quick_sort(s,l,i-1);//递归调用 
+        quick_sort(s,i+1,r);        
+    }
 }
 
 
 int main() {
     int numbers[7] = {2,3,1,0,2,5,3};
-    int dul = method_1(numbers,7);
-    printf("%d\n",dul);
+    int dul =  method_2(numbers,7);
+    printf("%d\n", dul);
     return 0;
 }
