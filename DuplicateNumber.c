@@ -37,8 +37,8 @@ void quick(int data[],int l, int r){
     int i = l;
     int j = r;
     int temp = data[i]; //l位置也就是i位置挖空,数值作为分化的标记。i位置现在为空
-    while(i< j){
-        while(i<j && data[j] > temp){
+    while(i< j){ //从i,j两边向中间靠拢，将小于的值放到左边，大于的值放到右边
+        while(i<j && data[j] > temp){ //从右到左找到第一个小于temp的数
             j--;
         }
         if (i<j)
@@ -47,7 +47,7 @@ void quick(int data[],int l, int r){
             i++;
         }
 
-        while(i<j && data[i] < temp){
+        while(i<j && data[i] < temp){ //从左往右找到第一个大于x的数
             i ++;
         }
         if (i<j)
